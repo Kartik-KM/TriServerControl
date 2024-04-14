@@ -1,13 +1,67 @@
-Ansible, an open-source automation tool, serves multiple purposes including configuration management, application deployment, and orchestration. It operates through a declarative paradigm, where the desired system state is defined rather than scripting specific commands. Utilizing SSH for communication with target systems, Ansible stands out as agentless and straightforward to configure.
+# Installation of Ansible
 
-The foundation of Ansible lies in its components:
+sudo apt-addrepository
+ppa:ansible/ansible
+sudo apt update
+sudo apt install ansible
 
-Inventory: A file listing target hosts for Ansible tasks, which can either be static or dynamically generated.
+# Host file address : 
 
-Playbooks: YAML files delineating tasks and configurations to be executed on target hosts.
+sudo nano /etc/ansible/hosts
+ansible-inventory --list -y
 
-Tasks: These are the atomic units of work in Ansible, representing actions to be carried out on target hosts.
+# Server Creation
 
-Modules: Ansible offers an extensive library of modules catering to various tasks such as package installation, file manipulation, and service management.
+[servers]
+server1 ansible_host=<Public IP>
+server2 ansible_host=<Public IP>
+server3 ansible_host=<Public IP>
 
-Roles: Reusable units of playbooks, roles encompass related tasks, handlers, variables, and files, organized within a directory structure.
+# Variable Creation
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_user=ubuntu
+ansible_ssh_private_key_file=/<file>
+
+# Ansible Playbooks
+-
+name: Date playbook
+hosts: servers
+tasks:
+ - name: this will show the
+date
+ command: date
+
+# Ansible Playbook to install Tools
+-
+name: This playbook will
+install nginx
+hosts: servers
+become: yes
+tasks:
+ - name: install nginx
+ apt:
+ name: nginx
+ state: latest
+ - name: start nginx
+ service:
+ name: nginx
+ state: started
+ enabled: yes
+
+# Ansible Playbooks with Conditional statements 
+-
+name: this will install based on os
+hosts: servers
+become: yes
+tasks:
+ - name: install Docker
+ apt:
+ name: docker.io
+ state: latest
+ - name: install aws cli
+ apt:
+ name: awscli
+ state: latest
+ when: ansible_distribution == 'Debian'
+or ansible_distribution == 'Ubuntu'
