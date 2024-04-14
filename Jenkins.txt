@@ -1,0 +1,13 @@
+Ansible, an open-source automation tool, serves multiple purposes including configuration management, application deployment, and orchestration. It operates through a declarative paradigm, where the desired system state is defined rather than scripting specific commands. Utilizing SSH for communication with target systems, Ansible stands out as agentless and straightforward to configure.
+
+The foundation of Ansible lies in its components:
+
+Inventory: A file listing target hosts for Ansible tasks, which can either be static or dynamically generated.
+
+Playbooks: YAML files delineating tasks and configurations to be executed on target hosts.
+
+Tasks: These are the atomic units of work in Ansible, representing actions to be carried out on target hosts.
+
+Modules: Ansible offers an extensive library of modules catering to various tasks such as package installation, file manipulation, and service management.
+
+Roles: Reusable units of playbooks, roles encompass related tasks, handlers, variables, and files, organized within a directory structure.
